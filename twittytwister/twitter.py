@@ -323,6 +323,16 @@ class Twitter(object):
         parser = txml.Statuses(delegate)
         return self.__postPage('/statuses/retweet/%s.xml' % (id), parser)
 
+    def report_spam(self, user_id, delegate):
+        """Report an user for spam
+
+        'delegate' should a function that will get the user info returned by the API.
+
+        Returns a deferred for the API call.
+        """
+        parser = txml.Users(delegate)
+        return self.__postPage('/report_spam.xml', parser, {'user_id':str(user_id)})
+
     def friends(self, delegate, params={}, extra_args=None):
         """Get updates from friends.
 
