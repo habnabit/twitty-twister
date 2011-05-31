@@ -347,6 +347,10 @@ class Twitter(object):
         return self.__get('/statuses/home_timeline.xml', delegate, params,
             txml.Statuses, extra_args=extra_args)
 
+    def status_get(self, id, delegate):
+        """Get a single tweet"""
+        return self.__get('/statuses/show/%s.xml' % (id), delegate, None, txml.Statuses)
+
     def mentions(self, delegate, params={}, extra_args=None):
         return self.__get('/statuses/mentions.xml', delegate, params,
             txml.Statuses, extra_args=extra_args)
