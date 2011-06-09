@@ -484,11 +484,27 @@ class Twitter(object):
 
         return self.__get_maybe_paging(url, delegate, params, txml.PagedUserList, extra_args, page_delegate)
 
-    def friends_ids(self, delegate, user, params={}, extra_args=None, page_delegate=None):
-        return self.__get_maybe_paging('/friends/ids/%s.xml' % (user), delegate, params, txml.PagedIDList, extra_args, page_delegate)
+    def friends_ids(self, delegate, user=None, params={}, extra_args=None, page_delegate=None):
+        """Get friend IDs
+
+        @param user: deprecated, use 'user_id' or 'screen_name' on the params dictionary
+        @param params: API parameters
+        """
+        params = params.copy()
+        if user:
+            params['id'] = user
+        return self.__get_maybe_paging('/friends/ids.xml', delegate, params, txml.PagedIDList, extra_args, page_delegate)
 
     def followers_ids(self, delegate, user, params={}, extra_args=None, page_delegate=None):
-        return self.__get_maybe_paging('/followers/ids/%s.xml' % (user), delegate, params, txml.PagedIDList, extra_args, page_delegate)
+        """Get follower IDs
+
+        @param user: deprecated, use 'user_id' or 'screen_name' on the params dictionary
+        @param params: API parameters
+        """
+        params = params.copy()
+        if user:
+            params['id'] = user
+        return self.__get_maybe_paging('/followers/ids.xml', delegate, params, txml.PagedIDList, extra_args, page_delegate)
 
     def list_members(self, delegate, user, list_name, params={}, extra_args=None, page_delegate=None):
         return self.__get_maybe_paging('/%s/%s/members.xml' % (user, list_name), delegate, params, txml.PagedUserList, extra_args, page_delegate=page_delegate)
