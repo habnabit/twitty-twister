@@ -21,7 +21,7 @@ import txml
 
 SIGNATURE_METHOD = oauth.OAuthSignatureMethod_HMAC_SHA1()
 
-BASE_URL="https://twitter.com"
+BASE_URL="https://api.twitter.com/1"
 SEARCH_URL="http://search.twitter.com/search.atom"
 
 
@@ -282,7 +282,7 @@ class Twitter(object):
             postdata=self._urlencode(args), headers=headers, timeout=self.timeout)
 
     def __downloadPage(self, path, parser, params=None):
-        url = self.base_url + path
+        url = self.base_url + path # can't use urljoin because most callers use URLs starting with '/'
 
         headers = self.makeAuthHeader('GET', url, params)
         if params:
