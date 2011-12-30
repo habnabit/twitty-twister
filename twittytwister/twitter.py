@@ -203,8 +203,8 @@ class Twitter(object):
             return
 
         def ratelimit_header(name):
-            hdr = 'x-ratelimit-%s' % (name)
-            field = 'rate_limit_%s' % (name)
+            hdr = 'x-ratelimit-%s' % (name,)
+            field = 'rate_limit_%s' % (name,)
             r = headers.get(hdr)
             if r is not None and len(r) > 0 and r[0]:
                 v = int(r[0])
@@ -321,7 +321,7 @@ class Twitter(object):
         Returns the retweet status info back to the given delegate
         """
         parser = txml.Statuses(delegate)
-        return self.__postPage('/statuses/retweet/%s.xml' % (id), parser)
+        return self.__postPage('/statuses/retweet/%s.xml' % (id,), parser)
 
     def report_spam(self, user_id, delegate):
         """Report an user for spam
@@ -347,9 +347,9 @@ class Twitter(object):
         return self.__get('/statuses/home_timeline.xml', delegate, params,
             txml.Statuses, extra_args=extra_args)
 
-    def status_get(self, id, delegate):
+    def show(self, id, delegate):
         """Get a single tweet"""
-        return self.__get('/statuses/show/%s.xml' % (id), delegate, None, txml.Statuses)
+        return self.__get('/statuses/show/%s.xml' % (id,), delegate, None, txml.Statuses)
 
     def mentions(self, delegate, params={}, extra_args=None):
         return self.__get('/statuses/mentions.xml', delegate, params,
@@ -425,7 +425,7 @@ class Twitter(object):
         Returns the user info back to the given delegate
         """
         parser = txml.Users(delegate)
-        return self.__postPage('/friendships/create/%s.xml' % (user), parser)
+        return self.__postPage('/friendships/create/%s.xml' % (user,), parser)
 
     def unfollow_user(self, user, delegate):
         """Unfollow the given user.
@@ -433,7 +433,7 @@ class Twitter(object):
         Returns the user info back to the given delegate
         """
         parser = txml.Users(delegate)
-        return self.__postPage('/friendships/destroy/%s.xml' % (user), parser)
+        return self.__postPage('/friendships/destroy/%s.xml' % (user,), parser)
 
     def __paging_get(self, url, delegate, params, pager, page_delegate=None):
         def end_page(p):
@@ -514,7 +514,7 @@ class Twitter(object):
 
         Returns a delegate that will receive the user in a callback."""
 
-        url = '/users/show/%s.xml' % (user)
+        url = '/users/show/%s.xml' % (user,)
         d = defer.Deferred()
 
         self.__downloadPage(url, txml.Users(lambda u: d.callback(u))) \
