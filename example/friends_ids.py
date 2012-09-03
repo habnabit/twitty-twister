@@ -6,15 +6,11 @@ Copyright (c) 2009  Eduardo Habkost <ehabkost@raisama.net>
 
 """
 
-import os
 import sys
 
-sys.path.append(os.path.join(sys.path[0], '..', 'twittytwister'))
-sys.path.append('twittytwister')
+from twisted.internet import reactor
 
-from twisted.internet import reactor, protocol, defer, task
-
-import twitter
+from twittytwister import twitter
 
 def gotId(data):
     print "Friend ID: %s" % (data)

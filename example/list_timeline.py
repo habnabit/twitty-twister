@@ -5,15 +5,11 @@ Copyright (c) 2008  Dustin Sallings <dustin@spy.net>
 Copyright (c) 2009  Bogdano Arendartchuk <debogdano@gmail.com>
 """
 
-import os
 import sys
 
-sys.path.append(os.path.join(sys.path[0], '..', 'twittytwister'))
-sys.path.append('twittytwister')
+from twisted.internet import reactor, defer
 
-from twisted.internet import reactor, protocol, defer, task
-
-import twitter
+from twittytwister import twitter
 
 fetchCount = 0
 
